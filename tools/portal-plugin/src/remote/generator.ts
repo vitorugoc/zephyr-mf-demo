@@ -6,6 +6,7 @@ import {
   installPackagesTask,
   readJson,
   type Tree,
+  updateJson,
   writeJson,
 } from '@nx/devkit';
 
@@ -25,6 +26,10 @@ type RegistryEntry = {
 type PackageJson = {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
+};
+type ShellPackageJson = PackageJson & {
+  'zephyr:dependencies': Record<string, string>;
+  nx: { targets: { build: { dependsOn: [{ projects: string[]; target: 'build' }] } } };
 };
 
 const SHELL = 'apps/shell';
@@ -47,6 +52,12 @@ export async function remoteGenerator(
     ...registry,
     { name, package: `portal-${name}`, port, module: './Page', route: name, label },
   ]);
+  updateJson<ShellPackageJson>(tree, `${SHELL}/package.json`, (shell) => {
+    // Same key as the MF remote name, or Zephyr can't rewrite the URL (see ADR 0005).
+    shell['zephyr:dependencies'][name] = `portal-${name}@workspace:*`;
+    shell.nx.targets.build.dependsOn[0].projects.push(`portal-${name}`);
+    return shell;
+  });
 
   await formatFiles(tree);
   return () => installPackagesTask(tree);

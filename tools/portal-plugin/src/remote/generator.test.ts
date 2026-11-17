@@ -78,4 +78,20 @@ describe('remote generator', () => {
     });
     expect(tree.read('apps/incidents/rsbuild.config.ts', 'utf-8')).toContain('port: 3002');
   });
+
+  it('adds the remote to zephyr:dependencies and the shell build order', async () => {
+    const tree = workspaceWithShell();
+
+    await remoteGenerator(tree, { name: 'incidents', label: 'Incidents' });
+
+    const shell = readJson(tree, 'apps/shell/package.json');
+    expect(shell['zephyr:dependencies']).toEqual({
+      catalog: 'portal-catalog@workspace:*',
+      incidents: 'portal-incidents@workspace:*',
+    });
+    expect(shell.nx.targets.build.dependsOn[0].projects).toEqual([
+      'portal-catalog',
+      'portal-incidents',
+    ]);
+  });
 });
