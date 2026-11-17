@@ -1,0 +1,15 @@
+.loading {
+  color: var(--portal-color-text-muted);
+}
+
+.error {
+  max-width: 36rem;
+  padding: var(--portal-space-6);
+  background: var(--portal-tone-danger-bg);
+  color: var(--portal-tone-danger-fg);
+  border-radius: var(--portal-radius-md);
+}
+
+.error p {
+  margin: 0 0 var(--portal-space-4);
+}
