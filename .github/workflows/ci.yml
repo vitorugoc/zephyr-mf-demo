@@ -55,4 +55,4 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v5
       # `build` is uncached and uploads to Zephyr, so only changed apps get a new version.
-      - run: pnpm nx affected -t build
+      - run: pnpm nx affected -t build --output-style=static
