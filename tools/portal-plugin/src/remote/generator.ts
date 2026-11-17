@@ -14,7 +14,14 @@ export type RemoteGeneratorSchema = {
   label?: string;
 };
 
-type RegistryEntry = { name: string; port: number };
+type RegistryEntry = {
+  name: string;
+  package: string;
+  port: number;
+  module: string;
+  route: string;
+  label: string;
+};
 type PackageJson = {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
@@ -36,6 +43,10 @@ export async function remoteGenerator(
 
   generateFiles(tree, join(__dirname, 'files'), appRoot, { name, label, port, tmpl: '' });
   writeJson(tree, `${appRoot}/package.json`, remotePackageJson(tree, name));
+  writeJson(tree, `${SHELL}/remotes.json`, [
+    ...registry,
+    { name, package: `portal-${name}`, port, module: './Page', route: name, label },
+  ]);
 
   await formatFiles(tree);
   return () => installPackagesTask(tree);
