@@ -11,6 +11,8 @@ A running log of what worked and what slowed me down while building this project
 - **19:53 — Login in a non-interactive shell.** The first build ran from a non-TTY shell. The error was clear and actionable ("Run the deployment in an interactive terminal … or provide a valid authentication token"). Running the same command in a real terminal opened the browser and worked first time.
 - **20:05 — Confusing log line on a web build.** The first catalog deploy printed `{ id: '005', message: 'Missing filename in Module Federation configuration. Since the filename in React Native is the actual JS bundle…' }`. This is a web app, and `filename` is set. The deploy succeeded anyway. The message looks like it comes from a React Native code path that shouldn't run here.
 - **20:07 — Transient 403 on a new app.** The shell's first deploy failed with `User … is not allowed to update portal-shell.zephyr-mf-demo.vitorugoc` (403 from `/build-id`). The catalog deployed fine with the same credentials seconds earlier. A build started from another terminal at the same moment succeeded, and my retry a minute later worked too. My guess is a race while the app record was being created. The CLI message gives no hint that retrying might help, so it reads like a permanent permission problem.
+- **20:22 — First CI deploy: `ZE_CI_TOKEN could not be exchanged for a Zephyr access token`.** The token was fine. My Zephyr account (created with email) had no linked GitHub identity, so Zephyr couldn't map the GitHub Actions actor to a user. The error's resolution line pointed in the right direction, but it says "Link this CI actor's Git provider account" while the dashboard calls the page "Git Providers" under My Profile → Settings, which took a docs search to find. After linking, re-running the failed job worked straight away.
+- **20:28 — NX hides the Zephyr output.** In CI, `nx affected -t build` only prints a ✔ per project, so the deployed URLs never showed up in the Actions log. `--output-style=static` fixes it. This one is NX, not Zephyr, but anyone pairing the two will hit it.
 
 ## What worked well
 
@@ -23,3 +25,4 @@ A running log of what worked and what slowed me down while building this project
 - Keep the tutorial version pins in sync with npm, or say "use the latest" and drop the pins.
 - On the 403 from `/build-id`, suggest retrying when the app was created in the last few seconds, or make app creation idempotent across parallel builds.
 - Silence the React Native `filename` check for web bundlers.
+- On the CI Tokens page, say up front that the person triggering CI needs a linked Git provider, and link straight to Git Providers from the token exchange error.
