@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@rstest/core';
+import { describe, expect, it, rs } from '@rstest/core';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { goldenPaths } from './data/golden-paths';
@@ -52,5 +52,18 @@ describe('GoldenPaths', () => {
       'Use lowercase letters, digits and single dashes, starting with a letter.',
     );
     expect(screen.queryByText(/pnpm nx g/)).not.toBeInTheDocument();
+  });
+
+  it('copies the command to the clipboard and confirms it', async () => {
+    const user = userEvent.setup();
+    const writeText = rs.fn(() => Promise.resolve());
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    render(<GoldenPaths />);
+
+    await user.type(nameInput(), 'incidents');
+    await user.click(screen.getByRole('button', { name: 'Copy command' }));
+
+    expect(writeText).toHaveBeenCalledWith('pnpm nx g @portal/plugin:remote --name=incidents');
+    expect(await screen.findByRole('button', { name: 'Copied' })).toBeInTheDocument();
   });
 });

@@ -8,6 +8,7 @@ import { validateName } from './validate-name';
 export default function GoldenPaths() {
   const [selectedId, setSelectedId] = useState(goldenPaths[0]?.id);
   const [name, setName] = useState('');
+  const [copied, setCopied] = useState(false);
   const inputId = useId();
   const errorId = useId();
 
@@ -38,7 +39,10 @@ export default function GoldenPaths() {
                 <Button
                   variant={isSelected ? 'primary' : 'secondary'}
                   aria-pressed={isSelected}
-                  onClick={() => setSelectedId(path.id)}
+                  onClick={() => {
+                    setSelectedId(path.id);
+                    setCopied(false);
+                  }}
                 >
                   Use {path.name}
                 </Button>
@@ -61,7 +65,10 @@ export default function GoldenPaths() {
           autoComplete="off"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => {
+            setName(event.target.value);
+            setCopied(false);
+          }}
         />
         {error && (
           <p id={errorId} className={styles.error}>
@@ -71,6 +78,12 @@ export default function GoldenPaths() {
         {command && (
           <output className={styles.command}>
             <code>{command}</code>
+            <Button
+              variant="secondary"
+              onClick={() => navigator.clipboard.writeText(command).then(() => setCopied(true))}
+            >
+              {copied ? 'Copied' : 'Copy command'}
+            </Button>
           </output>
         )}
       </div>
