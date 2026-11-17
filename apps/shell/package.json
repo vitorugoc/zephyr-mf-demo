@@ -1,0 +1,36 @@
+{
+  "name": "portal-shell",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ZE_DISABLED=true rsbuild dev",
+    "build": "rsbuild build",
+    "build:local": "ZE_DISABLED=true rsbuild build",
+    "preview": "rsbuild preview",
+    "test": "rstest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "zephyr:dependencies": {
+    "catalog": "portal-catalog@workspace:*"
+  },
+  "dependencies": {
+    "@module-federation/enhanced": "2.9.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@module-federation/rsbuild-plugin": "2.9.3",
+    "@rsbuild/core": "2.3.3",
+    "@rsbuild/plugin-react": "2.1.1",
+    "@rstest/core": "0.12.6",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "jsdom": "31.0.1",
+    "typescript": "6.0.3",
+    "zephyr-rsbuild-plugin": "1.8.0"
+  }
+}
