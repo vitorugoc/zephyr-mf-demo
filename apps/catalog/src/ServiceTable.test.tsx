@@ -42,4 +42,12 @@ describe('ServiceTable', () => {
     const row = screen.getByRole('row', { name: /Checkout API/ });
     expect(within(row).getByText('acme/checkout-api')).toBeInTheDocument();
   });
+
+  it('shows the owner team of each service', () => {
+    render(<ServiceTable services={[checkout]} />);
+
+    expect(screen.getByRole('columnheader', { name: 'Owner team' })).toBeInTheDocument();
+    const row = screen.getByRole('row', { name: /Checkout API/ });
+    expect(within(row).getByText('Payments')).toBeInTheDocument();
+  });
 });
