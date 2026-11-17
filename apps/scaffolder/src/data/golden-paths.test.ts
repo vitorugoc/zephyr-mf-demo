@@ -13,4 +13,12 @@ describe('golden path seed data', () => {
       expect(path.generator).toMatch(/^@[a-z-]+\/[a-z-]+:[a-z-]+$/);
     }
   });
+
+  it('marks react-remote as available, backed by the real @portal/plugin:remote generator', () => {
+    const available = goldenPaths.filter((path) => path.availability === 'available');
+
+    expect(available.map((path) => [path.id, path.generator])).toEqual([
+      ['react-remote', '@portal/plugin:remote'],
+    ]);
+  });
 });
