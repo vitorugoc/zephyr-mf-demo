@@ -94,4 +94,29 @@ describe('remote generator', () => {
       'portal-incidents',
     ]);
   });
+
+  it('rejects a name that is not kebab-case', async () => {
+    const tree = workspaceWithShell();
+
+    await expect(remoteGenerator(tree, { name: 'Incidents' })).rejects.toThrow(
+      'Invalid remote name "Incidents"',
+    );
+    expect(tree.exists('apps/Incidents')).toBe(false);
+  });
+
+  it('rejects a name that is already registered', async () => {
+    const tree = workspaceWithShell();
+
+    await expect(remoteGenerator(tree, { name: 'catalog' })).rejects.toThrow(
+      'Remote "catalog" already exists',
+    );
+  });
+
+  it('rejects a label that would break the generated code', async () => {
+    const tree = workspaceWithShell();
+
+    await expect(
+      remoteGenerator(tree, { name: 'incidents', label: "On-call's view" }),
+    ).rejects.toThrow('Label must not contain quotes');
+  });
 });
