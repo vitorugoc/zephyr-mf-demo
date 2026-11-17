@@ -27,5 +27,24 @@
       "inputs": ["default", "^production"]
     }
   },
-  "analytics": false
+  "analytics": false,
+  "release": {
+    "projects": ["@portal/ui"],
+    "projectsRelationship": "independent",
+    "releaseTag": {
+      "pattern": "{projectName}@{version}"
+    },
+    "version": {
+      "conventionalCommits": true
+    },
+    "changelog": {
+      "workspaceChangelog": false,
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commitMessage": "chore(release): publish {projectName}@{version}"
+    }
+  }
 }
