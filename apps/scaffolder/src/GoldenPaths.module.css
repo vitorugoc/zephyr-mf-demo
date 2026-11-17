@@ -9,6 +9,10 @@
   margin-bottom: var(--portal-space-8);
 }
 
+.item {
+  display: grid;
+}
+
 .selected {
   outline: 2px solid var(--portal-color-primary);
   border-radius: var(--portal-radius-md);
