@@ -1,0 +1,12 @@
+.card {
+  padding: var(--portal-space-6);
+  background: var(--portal-color-surface);
+  border: 1px solid var(--portal-color-border);
+  border-radius: var(--portal-radius-md);
+  box-shadow: var(--portal-shadow-card);
+}
+
+.title {
+  margin: 0 0 var(--portal-space-3);
+  font-size: 1.125rem;
+}
