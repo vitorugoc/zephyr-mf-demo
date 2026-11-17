@@ -1,0 +1,14 @@
+.header {
+  margin-bottom: var(--portal-space-6);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  margin: var(--portal-space-2) 0 0;
+  color: var(--portal-color-text-muted);
+}
