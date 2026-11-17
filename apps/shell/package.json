@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit"
   },
   "zephyr:dependencies": {
-    "catalog": "portal-catalog@workspace:*"
+    "catalog": "portal-catalog@workspace:*",
+    "scaffolder": "portal-scaffolder@workspace:*"
   },
   "dependencies": {
     "@module-federation/enhanced": "2.9.3",
@@ -40,7 +41,8 @@
         "dependsOn": [
           {
             "projects": [
-              "portal-catalog"
+              "portal-catalog",
+              "portal-scaffolder"
             ],
             "target": "build"
           }

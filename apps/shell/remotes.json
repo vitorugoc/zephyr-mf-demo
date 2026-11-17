@@ -1,0 +1,18 @@
+[
+  {
+    "name": "catalog",
+    "package": "portal-catalog",
+    "port": 3001,
+    "module": "./ServiceCatalog",
+    "route": "catalog",
+    "label": "Service Catalog"
+  },
+  {
+    "name": "scaffolder",
+    "package": "portal-scaffolder",
+    "port": 3002,
+    "module": "./GoldenPaths",
+    "route": "golden-paths",
+    "label": "Golden Paths"
+  }
+]
