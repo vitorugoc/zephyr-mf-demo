@@ -36,4 +36,13 @@ describe('ServiceCatalog', () => {
     const expected = services.filter((service) => service.tier === 'tier-3').length;
     expect(bodyRows()).toHaveLength(expected);
   });
+
+  it('shows an empty state when no service matches', async () => {
+    render(<ServiceCatalog />);
+
+    await userEvent.type(screen.getByRole('searchbox', { name: 'Search services' }), 'zzz');
+
+    expect(screen.queryByRole('table')).not.toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('No services match your filters.');
+  });
 });
