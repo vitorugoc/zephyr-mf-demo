@@ -14,6 +14,7 @@ export function ServiceTable({ services }: { services: readonly Service[] }) {
       <thead>
         <tr>
           <th scope="col">Service</th>
+          <th scope="col">Owner team</th>
           <th scope="col">Tier</th>
           <th scope="col">Status</th>
           <th scope="col">Repository</th>
@@ -28,6 +29,7 @@ export function ServiceTable({ services }: { services: readonly Service[] }) {
               <th scope="row" className={styles.name}>
                 {service.name}
               </th>
+              <td>{service.ownerTeam}</td>
               <td>{service.tier}</td>
               <td>
                 <Badge tone={status.tone}>{status.label}</Badge>
