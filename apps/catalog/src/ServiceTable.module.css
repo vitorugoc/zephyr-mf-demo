@@ -1,0 +1,42 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--portal-color-surface);
+  border: 1px solid var(--portal-color-border);
+  border-radius: var(--portal-radius-md);
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: var(--portal-space-3) var(--portal-space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--portal-color-border);
+}
+
+.table th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--portal-color-text-muted);
+  background: var(--portal-color-bg);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.repo {
+  font-family: var(--portal-font-mono);
+  font-size: 0.875rem;
+  color: var(--portal-color-primary);
+}
+
+.tags {
+  color: var(--portal-color-text-muted);
+  font-size: 0.875rem;
+}
