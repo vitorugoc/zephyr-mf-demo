@@ -27,7 +27,10 @@ export default function GoldenPaths() {
         {goldenPaths.map((path) => {
           const isSelected = path.id === selectedId;
           return (
-            <div key={path.id} className={isSelected ? styles.selected : undefined}>
+            <div
+              key={path.id}
+              className={isSelected ? `${styles.item} ${styles.selected}` : styles.item}
+            >
               <Card title={path.name}>
                 <p className={styles.description}>{path.description}</p>
                 <div className={styles.meta}>
