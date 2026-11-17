@@ -1,0 +1,21 @@
+{
+  "name": "@portal/plugin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "NX generators for the Platform Portal golden paths",
+  "type": "commonjs",
+  "generators": "./generators.json",
+  "scripts": {
+    "test": "rstest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nx/devkit": "24.0.6"
+  },
+  "devDependencies": {
+    "@rstest/core": "0.12.6",
+    "@types/node": "24.19.2",
+    "nx": "24.0.6",
+    "typescript": "6.0.3"
+  }
+}

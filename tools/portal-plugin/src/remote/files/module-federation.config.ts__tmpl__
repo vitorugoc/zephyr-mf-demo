@@ -1,0 +1,12 @@
+import type { ModuleFederationOptions } from '@module-federation/rsbuild-plugin';
+import { shared } from '../../module-federation.shared.ts';
+
+export default {
+  name: '<%= name %>',
+  filename: 'remoteEntry.js',
+  exposes: {
+    './Page': './src/Page.tsx',
+  },
+  shared,
+  dts: false,
+} satisfies ModuleFederationOptions;

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "PortalRemote",
+  "title": "Portal remote",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Kebab-case name; becomes the MF name, the route and portal-<name> package",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "What is the remote called (kebab-case)?"
+    },
+    "label": {
+      "type": "string",
+      "description": "Navigation label in the shell, e.g. \"Incidents\""
+    }
+  },
+  "required": ["name"]
+}

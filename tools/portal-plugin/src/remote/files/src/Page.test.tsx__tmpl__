@@ -1,0 +1,11 @@
+import { describe, expect, it } from '@rstest/core';
+import { render, screen } from '@testing-library/react';
+import Page from './Page';
+
+describe('<%= label %> page', () => {
+  it('renders the page heading', () => {
+    render(<Page />);
+
+    expect(screen.getByRole('heading', { level: 1, name: '<%= label %>' })).toBeInTheDocument();
+  });
+});
