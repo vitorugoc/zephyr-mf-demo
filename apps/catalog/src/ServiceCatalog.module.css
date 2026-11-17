@@ -33,3 +33,12 @@
   outline: 3px solid var(--portal-color-focus);
   outline-offset: 1px;
 }
+
+.empty {
+  padding: var(--portal-space-8);
+  text-align: center;
+  color: var(--portal-color-text-muted);
+  background: var(--portal-color-surface);
+  border: 1px dashed var(--portal-color-border);
+  border-radius: var(--portal-radius-md);
+}

@@ -47,7 +47,13 @@ export default function ServiceCatalog() {
           </select>
         </label>
       </search>
-      <ServiceTable services={visible} />
+      {visible.length > 0 ? (
+        <ServiceTable services={visible} />
+      ) : (
+        <p role="status" className={styles.empty}>
+          No services match your filters.
+        </p>
+      )}
     </section>
   );
 }
