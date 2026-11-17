@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "NX generators for the Platform Portal golden paths",
-  "type": "commonjs",
+  "type": "module",
   "generators": "./generators.json",
   "scripts": {
     "test": "rstest run",

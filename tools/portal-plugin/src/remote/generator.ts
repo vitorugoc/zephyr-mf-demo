@@ -58,7 +58,7 @@ export async function remoteGenerator(
   const port = Math.max(3000, ...registry.map((entry) => entry.port)) + 1;
   const appRoot = `apps/${name}`;
 
-  generateFiles(tree, join(__dirname, 'files'), appRoot, { name, label, port, tmpl: '' });
+  generateFiles(tree, join(import.meta.dirname, 'files'), appRoot, { name, label, port, tmpl: '' });
   writeJson(tree, `${appRoot}/package.json`, remotePackageJson(tree, name));
   writeJson(tree, `${SHELL}/remotes.json`, [
     ...registry,
@@ -72,7 +72,8 @@ export async function remoteGenerator(
   });
 
   await formatFiles(tree);
-  return () => installPackagesTask(tree);
+  // alwaysRun: NX only installs on root package.json changes by default.
+  return () => installPackagesTask(tree, true);
 }
 
 /** Same scripts as the other remotes, same dependency versions as the shell. */
