@@ -7,7 +7,7 @@ import mfConfig from './module-federation.config';
 export default defineConfig({
   server: { port: 3000 },
   output: { assetPrefix: 'auto' },
-  html: { title: 'Platform Portal' },
+  html: { title: 'Platform Portal', favicon: './src/favicon.svg' },
   // withZephyr must come after the federation plugin so it can read its config.
   plugins: [pluginReact(), pluginModuleFederation(mfConfig), withZephyr()],
 });
