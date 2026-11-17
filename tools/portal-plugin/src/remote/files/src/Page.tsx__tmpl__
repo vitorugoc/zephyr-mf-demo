@@ -1,0 +1,9 @@
+import { PageHeader } from '@portal/ui';
+
+export default function Page() {
+  return (
+    <section>
+      <PageHeader title="<%= label %>" description="Scaffolded from the react-remote golden path." />
+    </section>
+  );
+}

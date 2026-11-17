@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "remote": {
+      "factory": "./src/remote/generator",
+      "schema": "./src/remote/schema.json",
+      "description": "Scaffold a federated React remote and register it in the portal shell"
+    }
+  }
+}

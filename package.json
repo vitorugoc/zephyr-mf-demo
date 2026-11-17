@@ -21,6 +21,7 @@
     "@biomejs/biome": "2.6.8",
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
+    "@portal/plugin": "workspace:*",
     "@types/node": "24.19.2",
     "lefthook": "2.2.2",
     "nx": "24.0.6",
