@@ -1,5 +1,5 @@
 import type { ModuleFederationOptions } from '@module-federation/rsbuild-plugin';
-import { shared } from '../../module-federation.shared';
+import { shared } from '../../module-federation.shared.ts';
 import { federationRemotes, registry } from './src/registry';
 
 export default {
