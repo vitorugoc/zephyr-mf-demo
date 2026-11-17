@@ -17,7 +17,7 @@ export const goldenPaths: readonly GoldenPath[] = [
       'A federated React page with Rsbuild, Module Federation, Zephyr deploys and Rstest, registered in the portal shell.',
     generator: '@portal/plugin:remote',
     stack: ['react', 'rsbuild', 'module-federation', 'zephyr'],
-    availability: 'example',
+    availability: 'available',
   },
   {
     id: 'node-bff-lambda',
