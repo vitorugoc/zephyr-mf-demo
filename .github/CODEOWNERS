@@ -1,0 +1,16 @@
+# In a real org each micro-frontend would belong to a different team.
+# This is a one-person demo, so every line points at the same owner.
+
+*                  @vitorugoc
+
+# Platform team: shell, design system, tooling, CI
+/apps/shell/       @vitorugoc
+/packages/ui/      @vitorugoc
+/tools/            @vitorugoc
+/.github/          @vitorugoc
+
+# Catalog team
+/apps/catalog/     @vitorugoc
+
+# Developer experience team
+/apps/scaffolder/  @vitorugoc
