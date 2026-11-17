@@ -62,4 +62,20 @@ describe('remote generator', () => {
     expect(tree.read('apps/incidents/src/Page.tsx', 'utf-8')).toContain('Incidents');
     expect(tree.exists('apps/incidents/src/Page.test.tsx')).toBe(true);
   });
+
+  it('registers the remote in the shell registry on the next free port', async () => {
+    const tree = workspaceWithShell();
+
+    await remoteGenerator(tree, { name: 'incidents', label: 'Incidents' });
+
+    expect(readJson(tree, 'apps/shell/remotes.json').at(-1)).toEqual({
+      name: 'incidents',
+      package: 'portal-incidents',
+      port: 3002,
+      module: './Page',
+      route: 'incidents',
+      label: 'Incidents',
+    });
+    expect(tree.read('apps/incidents/rsbuild.config.ts', 'utf-8')).toContain('port: 3002');
+  });
 });
