@@ -33,6 +33,9 @@ type ShellPackageJson = PackageJson & {
 };
 
 const SHELL = 'apps/shell';
+// Same rule as the scaffolder UI (apps/scaffolder/src/validate-name.ts). Duplicated
+// on purpose: one regex isn't worth a shared package.
+const KEBAB_CASE = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
 // Only the host loads remotes at runtime; remotes don't need the runtime package.
 const HOST_ONLY_DEPENDENCIES = ['@module-federation/enhanced'];
 
@@ -43,6 +46,15 @@ export async function remoteGenerator(
   const name = options.name;
   const label = options.label ?? name;
   const registry = readJson<RegistryEntry[]>(tree, `${SHELL}/remotes.json`);
+  if (!KEBAB_CASE.test(name) || name.length < 3 || name.length > 30) {
+    throw new Error(`Invalid remote name "${name}": use 3-30 lowercase letters, digits and dashes`);
+  }
+  if (registry.some((entry) => entry.name === name) || tree.exists(`apps/${name}`)) {
+    throw new Error(`Remote "${name}" already exists`);
+  }
+  if (/['"`\\<>]/.test(label)) {
+    throw new Error('Label must not contain quotes, backslashes or angle brackets');
+  }
   const port = Math.max(3000, ...registry.map((entry) => entry.port)) + 1;
   const appRoot = `apps/${name}`;
 
