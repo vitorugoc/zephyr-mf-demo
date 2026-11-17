@@ -1,0 +1,51 @@
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--portal-space-8);
+  padding: 0 var(--portal-space-8);
+  background: #11151c;
+  color: #ffffff;
+}
+
+.brand {
+  padding: var(--portal-space-4) 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.nav {
+  display: flex;
+  gap: var(--portal-space-2);
+}
+
+.link {
+  display: block;
+  padding: var(--portal-space-4) var(--portal-space-3);
+  color: #b8c0cc;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+  color: #ffffff;
+}
+
+.link[aria-current="page"] {
+  color: #ffffff;
+  border-bottom-color: var(--portal-color-focus);
+}
+
+.link:focus-visible {
+  outline: 3px solid var(--portal-color-focus);
+  outline-offset: -3px;
+}
+
+.main {
+  padding: var(--portal-space-8);
+}
