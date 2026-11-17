@@ -1,0 +1,35 @@
+.page {
+  max-width: 72rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--portal-space-4);
+  margin-bottom: var(--portal-space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--portal-space-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field input,
+.field select {
+  min-width: 14rem;
+  padding: var(--portal-space-2) var(--portal-space-3);
+  border: 1px solid var(--portal-color-border);
+  border-radius: var(--portal-radius-sm);
+  font: inherit;
+  font-weight: 400;
+  background: var(--portal-color-surface);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: 3px solid var(--portal-color-focus);
+  outline-offset: 1px;
+}
