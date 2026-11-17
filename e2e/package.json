@@ -1,0 +1,33 @@
+{
+  "name": "portal-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "nx": {
+    "targets": {
+      "e2e": {
+        "cache": false,
+        "dependsOn": [
+          {
+            "projects": [
+              "portal-shell",
+              "portal-catalog",
+              "portal-scaffolder"
+            ],
+            "target": "build:local"
+          }
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3"
+  }
+}
