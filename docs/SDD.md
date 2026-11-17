@@ -99,7 +99,7 @@ Host MF remote string: `` `${name}@http://localhost:${port}/mf-manifest.json` ``
 | [0001](adr/0001-rsbuild-module-federation-zephyr.md) | Rsbuild + MF 2.0 + `zephyr-rsbuild-plugin`, with newer pinned versions than the docs show |
 | [0002](adr/0002-thin-nx-build-is-deploy.md) | Thin NX. `build` = deploy (uncached), `build:local` for e2e, task-level build order |
 | [0003](adr/0003-runtime-remote-registry.md) | Runtime `loadRemote()` from a JSON registry, no MF DTS, a contract test |
-| [0004](adr/0004-rstest-over-vitest.md) | Rstest + Rsbuild adapter, with Vitest as a timeboxed fallback |
+| [0004](adr/0004-rstest-over-vitest.md) | Rstest with only the React plugin, with Vitest as a timeboxed fallback |
 | [0005](adr/0005-zephyr-selectors-and-production-env.md) | `workspace:*` selectors, one `production` env, deploy from `main` only |
 
 Smaller decisions that don't need an ADR:
@@ -126,7 +126,7 @@ Smaller decisions that don't need an ADR:
 | Language | `typescript` | 6.0.3 |
 | | `@types/node` | 24.19.2 |
 | Lint/format | `@biomejs/biome` | 2.6.8 |
-| Unit tests | `@rstest/core` / `@rstest/adapter-rsbuild` | 0.12.6 |
+| Unit tests | `@rstest/core` | 0.12.6 |
 | | `@testing-library/react` | 16.3.3 |
 | | `@testing-library/dom` | 10.4.2 |
 | | `@testing-library/user-event` | 14.6.12 |
@@ -500,13 +500,13 @@ If a result changes a decision, supersede the matching ADR.
 
 | # | Check | Fallback if it fails | Result |
 |---|---|---|---|
-| a | Rsbuild 2.3.3 + MF 2.9.3 + zephyr 1.8.0 build and deploy | Drop to the newest combination that works; note it in the feedback | |
-| b | `ZE_DISABLED=true` keeps `dev` and `build:local` from uploading or prompting | Add `withZephyr()` only when our own flag is set (`ZEPHYR_DEPLOY=1` on `build`) | |
-| c | `loadRemote()` resolves remotes that Zephyr rewrote | Static `import()` through `React.lazy`, with typings in `remotes.d.ts` | |
-| d | `workspace:*` resolves in CI (CI token user, `main`) | `@latest` | |
-| e | A catalog-only deploy shows up in the un-rebuilt host and in `production` | `dependencyUrlMode` docs, ask Zephyr support, demo with a tag | |
-| f | `nx show projects --affected` leaves out the shell after a catalog-only change | Deploy step: `affected --exclude=portal-shell`, then the shell only if it is affected | |
-| g | Rstest's Rsbuild adapter does not pull the MF or Zephyr plugins into tests | `modifyRsbuildConfig` keeps only `pluginReact()` | |
+| a | Rsbuild 2.3.3 + MF 2.9.3 + zephyr 1.8.0 build and deploy | Drop to the newest combination that works; note it in the feedback | Pass. catalog #1–#2 and shell #4–#5 deployed. One transient 403 on the shell's first build (see feedback). |
+| b | `ZE_DISABLED=true` keeps `dev` and `build:local` from uploading or prompting | Add `withZephyr()` only when our own flag is set (`ZEPHYR_DEPLOY=1` on `build`) | Pass. Prints "The bundle is not deployed. Zephyr is disabled" and never asks for auth. |
+| c | `loadRemote()` resolves remotes that Zephyr rewrote | Static `import()` through `React.lazy`, with typings in `remotes.d.ts` | Pass. The deployed shell renders the catalog; Zephyr rewrote the remote to the branch tag URL (`t-web-ci-p1-zephyr-spike-…/remoteEntry.js`). |
+| d | `workspace:*` resolves in CI (CI token user, `main`) | `@latest` | Pass locally (same branch and user). CI: pending first deploy from `main`. |
+| e | A catalog-only deploy shows up in the un-rebuilt host and in `production` | `dependencyUrlMode` docs, ask Zephyr support, demo with a tag | Pending (P6). |
+| f | `nx show projects --affected` leaves out the shell after a catalog-only change | Deploy step: `affected --exclude=portal-shell`, then the shell only if it is affected | Pass. The project graph has no shell → catalog edge; the task graph still builds the catalog first. |
+| g | Rstest does not pull the MF or Zephyr plugins into tests | Configure Rstest's own `plugins` with only `pluginReact()` | Pass by design. `rstest.config.ts` lists only `pluginReact()`, so the adapter isn't needed and was dropped. |
 
 ## 11. Risks
 
