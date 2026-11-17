@@ -1,0 +1,35 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--portal-space-2);
+  padding: var(--portal-space-2) var(--portal-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--portal-radius-md);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--portal-color-focus);
+  outline-offset: 2px;
+}
+
+.primary {
+  background: var(--portal-color-primary);
+  color: var(--portal-color-on-primary);
+}
+
+.primary:hover {
+  background: var(--portal-color-primary-hover);
+}
+
+.secondary {
+  background: var(--portal-color-surface);
+  border-color: var(--portal-color-border);
+  color: var(--portal-color-text);
+}
+
+.secondary:hover {
+  background: var(--portal-color-bg);
+}
