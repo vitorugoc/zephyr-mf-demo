@@ -76,6 +76,55 @@ importers:
         specifier: 1.8.0
         version: 1.8.0(@rsbuild/core@2.3.3(@module-federation/runtime-tools@2.9.3))(@rspack/core@2.3.3(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))
 
+  apps/shell:
+    dependencies:
+      '@module-federation/enhanced':
+        specifier: 2.9.3
+        version: 2.9.3(@rspack/core@2.3.3(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))(typescript@6.0.3)
+      react:
+        specifier: 19.3.1
+        version: 19.3.1
+      react-dom:
+        specifier: 19.3.1
+        version: 19.3.1(react@19.3.1)
+    devDependencies:
+      '@module-federation/rsbuild-plugin':
+        specifier: 2.9.3
+        version: 2.9.3(@rsbuild/core@2.3.3(@module-federation/runtime-tools@2.9.3))(@rspack/core@2.3.3(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))(typescript@6.0.3)
+      '@rsbuild/core':
+        specifier: 2.3.3
+        version: 2.3.3(@module-federation/runtime-tools@2.9.3)
+      '@rsbuild/plugin-react':
+        specifier: 2.1.1
+        version: 2.1.1(@rsbuild/core@2.3.3(@module-federation/runtime-tools@2.9.3))(@rspack/core@2.3.3(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))
+      '@rstest/core':
+        specifier: 0.12.6
+        version: 0.12.6(@module-federation/runtime-tools@2.9.3)(jsdom@31.0.1)
+      '@testing-library/dom':
+        specifier: 10.4.2
+        version: 10.4.2
+      '@testing-library/jest-dom':
+        specifier: 7.0.1
+        version: 7.0.1(@testing-library/dom@10.4.2)
+      '@testing-library/react':
+        specifier: 16.3.3
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@types/react':
+        specifier: 19.3.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 19.3.0
+        version: 19.3.0(@types/react@19.3.0)
+      jsdom:
+        specifier: 31.0.1
+        version: 31.0.1
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      zephyr-rsbuild-plugin:
+        specifier: 1.8.0
+        version: 1.8.0(@rsbuild/core@2.3.3(@module-federation/runtime-tools@2.9.3))(@rspack/core@2.3.3(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))
+
 packages:
 
   '@adobe/css-tools@4.5.0':
