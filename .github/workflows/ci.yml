@@ -33,3 +33,26 @@ jobs:
       - uses: nrwl/nx-set-shas@v5
       - run: pnpm lint
       - run: pnpm nx affected -t typecheck test
+
+  deploy:
+    name: Deploy to Zephyr
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      ZE_CI_TOKEN: ${{ secrets.ZEPHYR_CI_TOKEN }}
+      ZE_FAIL_BUILD: "true"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Zephyr reads branch, commit and author from git history.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: nrwl/nx-set-shas@v5
+      # `build` is uncached and uploads to Zephyr, so only changed apps get a new version.
+      - run: pnpm nx affected -t build
