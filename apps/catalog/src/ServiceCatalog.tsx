@@ -1,7 +1,12 @@
+import { PageHeader } from '@portal/ui';
+
 export default function ServiceCatalog() {
   return (
     <section>
-      <h1>Service Catalog</h1>
+      <PageHeader
+        title="Service Catalog"
+        description="Every service the platform runs, and who owns it."
+      />
     </section>
   );
 }
