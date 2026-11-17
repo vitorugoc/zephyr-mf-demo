@@ -32,5 +32,19 @@
     "jsdom": "31.0.1",
     "typescript": "6.0.3",
     "zephyr-rsbuild-plugin": "1.8.0"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "dependsOn": [
+          {
+            "projects": [
+              "portal-catalog"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
   }
 }
