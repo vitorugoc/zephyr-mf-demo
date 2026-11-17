@@ -14,16 +14,21 @@
     "format": "biome check --write .",
     "typecheck": "nx run-many -t typecheck",
     "test": "nx run-many -t test",
-    "deploy": "nx run-many -t build"
+    "deploy": "nx run-many -t build",
+    "prepare": "lefthook install"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.8",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@types/node": "24.19.2",
+    "lefthook": "2.2.2",
     "nx": "24.0.6",
     "typescript": "6.0.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "lefthook",
       "nx"
     ]
   }
