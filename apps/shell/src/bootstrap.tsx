@@ -1,3 +1,4 @@
+import '@portal/ui/tokens.css';
 import { loadRemote } from '@module-federation/enhanced/runtime';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';

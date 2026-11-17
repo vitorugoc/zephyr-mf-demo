@@ -1,4 +1,5 @@
 import type { ModuleFederationOptions } from '@module-federation/rsbuild-plugin';
+import { shared } from '../../module-federation.shared';
 
 export default {
   name: 'shell',
@@ -7,9 +8,6 @@ export default {
   remotes: {
     catalog: 'catalog@http://localhost:3001/mf-manifest.json',
   },
-  shared: {
-    react: { singleton: true, requiredVersion: '^19.3.0' },
-    'react-dom': { singleton: true, requiredVersion: '^19.3.0' },
-  },
+  shared,
   dts: false,
 } satisfies ModuleFederationOptions;
