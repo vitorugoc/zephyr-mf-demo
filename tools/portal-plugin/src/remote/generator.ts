@@ -52,8 +52,12 @@ export async function remoteGenerator(
   if (registry.some((entry) => entry.name === name) || tree.exists(`apps/${name}`)) {
     throw new Error(`Remote "${name}" already exists`);
   }
-  if (/['"`\\<>]/.test(label)) {
-    throw new Error('Label must not contain quotes, backslashes or angle brackets');
+  // The label is interpolated into TS string literals and JSX text in the templates.
+  // biome-ignore lint/suspicious/noControlCharactersInRegex: rejecting control characters is the point.
+  if (/[\x00-\x1F'"`\\<>]/.test(label)) {
+    throw new Error(
+      'Label must not contain quotes, backslashes, angle brackets or control characters',
+    );
   }
   const port = Math.max(3000, ...registry.map((entry) => entry.port)) + 1;
   const appRoot = `apps/${name}`;
