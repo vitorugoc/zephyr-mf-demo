@@ -80,3 +80,9 @@
   flex: 1;
   overflow-x: auto;
 }
+
+.note {
+  margin: 0;
+  color: var(--portal-color-text-muted);
+  font-size: 0.875rem;
+}

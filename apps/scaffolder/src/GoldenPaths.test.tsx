@@ -27,10 +27,23 @@ describe('GoldenPaths', () => {
   it('shows the generate command for the selected path once the name is valid', async () => {
     render(<GoldenPaths />);
 
+    await userEvent.type(nameInput(), 'incidents');
+
+    expect(
+      screen.getByText('pnpm nx g @portal/plugin:remote --name=incidents'),
+    ).toBeInTheDocument();
+  });
+
+  it('does not offer a command for example paths whose generator does not exist', async () => {
+    render(<GoldenPaths />);
+
     await userEvent.click(screen.getByRole('button', { name: 'Use Node BFF on Lambda' }));
     await userEvent.type(nameInput(), 'orders-bff');
 
-    expect(screen.getByText('pnpm nx g @portal/plugin:bff --name=orders-bff')).toBeInTheDocument();
+    expect(screen.queryByText(/pnpm nx g/)).not.toBeInTheDocument();
+    expect(screen.getByRole('note')).toHaveTextContent(
+      'Node BFF on Lambda is an example path; its generator is not part of this repo yet.',
+    );
   });
 
   it('marks the selected path as pressed', async () => {
