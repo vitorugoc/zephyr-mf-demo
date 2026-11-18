@@ -161,7 +161,7 @@ zephyr-mf-demo/
 ├── packages/ui/                    # @portal/ui: Button Badge Card PageHeader tokens.css
 ├── tools/portal-plugin/            # @portal/plugin: generators.json, src/remote/{generator,schema,files}
 ├── e2e/                            # portal-e2e: playwright.config.ts, smoke.spec.ts
-├── docs/  SDD.md  adr/  zephyr-feedback.md  demo-script.md
+├── docs/  SDD.md  adr/  deployment.md  zephyr-feedback.md
 ├── biome.json  commitlint.config.ts  lefthook.yml  nx.json  tsconfig.base.json
 ├── package.json  pnpm-workspace.yaml  .npmrc  .nvmrc  .gitignore  LICENSE  README.md
 ```
@@ -469,7 +469,7 @@ Total is about 27h. **Cut line:** P0–P6 plus P9 is a complete submission. P7 a
   - docs gaps (for example version drift: 1.2.0/2.8.0 in the docs vs 1.8.0/2.9.3 on npm)
   - suggestions
   - feedback on the assignment
-- **`docs/demo-script.md`:** the timed outline below.
+- **Demo script:** the timed outline below, kept outside the repo.
 - **Video:** QuickTime at 1080p, then `ffmpeg … -c:v libx264 -crf 26`, uploaded as unlisted on YouTube.
 - **Timed outline:**
 
@@ -491,7 +491,6 @@ Total is about 27h. **Cut line:** P0–P6 plus P9 is a complete submission. P7 a
 - **Commits:**
   - `docs: write readme with architecture and deployment guide`
   - `docs: add zephyr feedback`
-  - `docs: add demo script`
   - `docs: link demo video`
 
 ## 10. Spike checklist (fill in after P1)
