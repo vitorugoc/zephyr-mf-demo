@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!**/pnpm-lock.yaml", "!docs", "!tools/portal-plugin/src/remote/files"]
+    "includes": ["**", "!**/pnpm-lock.yaml", "!**/*.md", "!tools/portal-plugin/src/remote/files"]
   },
   "formatter": {
     "enabled": true,
