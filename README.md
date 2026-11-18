@@ -3,7 +3,7 @@
 A small internal developer portal built as micro-frontends. A host shell composes two independently deployed remotes at runtime with Module Federation 2.0. Every app is deployed to **Zephyr Cloud through its default managed integration**, and changing one remote ships only that remote.
 
 - **Live (production):** https://production-portal-shell-zephyr-mf-demo-vitorugoc-ze.zephyrcloud.app/
-- **Demo video:** _link added after recording_
+- **Demo video:** https://www.youtube.com/watch?v=OJzMei_U5eg
 - **Design doc:** [docs/SDD.md](docs/SDD.md) · **Deployment:** [docs/deployment.md](docs/deployment.md) · **Zephyr feedback:** [docs/zephyr-feedback.md](docs/zephyr-feedback.md)
 
 ```mermaid
