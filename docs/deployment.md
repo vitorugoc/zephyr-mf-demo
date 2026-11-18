@@ -5,7 +5,7 @@ How code gets from a commit to Zephyr Cloud, and how a release is promoted or ro
 ## The short version
 
 1. Every app's `build` target runs `rsbuild build` with `withZephyr()` as the last plugin. The plugin uploads the output to Zephyr's managed cloud (Zephyr's default integration, no BYOC provider), and each build becomes an **immutable version** with its own URL.
-2. CI (`.github/workflows/ci.yml`) runs `verify` on every PR. On a push to `main` it also runs `deploy`: `nx affected -t build` with `ZE_CI_TOKEN`. Only the apps that changed get a new version.
+2. CI (`.github/workflows/ci.yml`) runs `verify` on every PR. On a push to `main` it also runs `deploy`: `nx affected -t build` with `ZE_CI_TOKEN`. A remote-only change gets exactly one new version (see below for shell changes).
 3. The host never hardcodes remote URLs. `zephyr:dependencies` in `apps/shell/package.json` maps each MF remote key to a Zephyr app (`portal-catalog@workspace:*`). At build time Zephyr rewrites the shell's `localhost` remotes to **tag URLs** that always point at the newest matching remote version.
 4. Environments and rollbacks are pointer changes in the Zephyr dashboard. Nothing is rebuilt.
 
@@ -29,6 +29,7 @@ The shell's build depends on the remotes' builds at **task** level only (`nx.tar
 - A change in `apps/catalog` → `nx affected` = `portal-catalog` only → one new catalog version.
 - The shell isn't rebuilt. Its remote URL is a tag URL (for example `t-web-latest-…-portal-catalog-…`), so it picks the new catalog version up on the next page load.
 - A change in `packages/ui` or `module-federation.shared.ts` affects every app, which is right: shared singletons must agree.
+- A change in `apps/shell` runs the remotes' builds first, because of that same `dependsOn`. They upload fresh versions with identical content. It's noisy but harmless, and it guarantees the remotes exist before the very first shell deploy. Once every remote has been deployed at least once, the trade-off could flip: drop the `dependsOn` and let the shell rely on the tag URLs.
 
 ## Environments
 
