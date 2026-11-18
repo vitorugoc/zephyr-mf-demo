@@ -33,6 +33,9 @@ jobs:
       - uses: nrwl/nx-set-shas@v5
       - run: pnpm lint
       - run: pnpm nx affected -t typecheck test
+      # The shell's contract test reads every remote's config, but a remote-only
+      # change doesn't make the shell "affected". Run it every time (cached if unchanged).
+      - run: pnpm nx run portal-shell:test
       - run: pnpm --dir e2e exec playwright install --with-deps chromium
       # Builds every app with Zephyr disabled, serves the builds and runs the smoke + axe tests.
       - run: pnpm nx run portal-e2e:e2e

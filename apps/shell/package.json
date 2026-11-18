@@ -48,6 +48,14 @@
             "target": "build"
           }
         ]
+      },
+      "test": {
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/apps/*/package.json",
+          "{workspaceRoot}/apps/*/module-federation.config.ts"
+        ]
       }
     }
   }
