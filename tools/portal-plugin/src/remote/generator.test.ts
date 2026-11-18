@@ -119,4 +119,12 @@ describe('remote generator', () => {
       remoteGenerator(tree, { name: 'incidents', label: "On-call's view" }),
     ).rejects.toThrow('Label must not contain quotes');
   });
+
+  it('rejects a label with control characters such as a newline', async () => {
+    const tree = workspaceWithShell();
+
+    await expect(remoteGenerator(tree, { name: 'incidents', label: 'On\ncall' })).rejects.toThrow(
+      'Label must not contain',
+    );
+  });
 });
