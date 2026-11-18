@@ -33,17 +33,22 @@ The shell's build depends on the remotes' builds at **task** level only (`nx.tar
 
 ## Environments
 
-Created in the Zephyr dashboard under **DevOps → Environments**:
+Environments are per application, and each one follows a tag. Set up in the Zephyr dashboard (**app → DevOps**):
 
-| Environment | Points at | Purpose |
+| App | Tag | Environment |
 |---|---|---|
-| `production` | builds from `main` | what users see; the URL to share |
+| `portal-shell` | `main` (branch is `main`) | `production` |
+| `portal-catalog` | `main` (branch is `main`) | `production` |
 
-An environment follows a tag condition (branch `main`) or is pinned to one version. Promoting or pinning is a dashboard action, again with no rebuild.
+On its own, a host environment does **not** switch its remotes to same-named environments. The shell's `production` environment therefore has a remote dependency override (**Environments → production → dependencies**) pointing `catalog` at the catalog's `production` environment. The result:
+
+- https://production-portal-shell-zephyr-mf-demo-vitorugoc-ze.zephyrcloud.app/ loads the catalog from `https://production-portal-catalog-…/remoteEntry.js`.
+- A version URL such as `vitorhugo02cc-29-portal-shell-…` is immutable. It keeps the remote URLs from its build (the auto tag `web_latest_…`), so use the environment URL for anything users see.
+- `portal-scaffolder` has no environment and still follows its build tag. Adding one is the same two steps plus an override.
 
 ## Rollback
 
-In the dashboard, open the app (for example `portal-catalog`) and use **Rollback**. The environment moves back to the previous successful version. The shell keeps working, because it resolves the catalog through the tag or environment rather than a fixed version.
+In the dashboard, open `portal-catalog` and use **Rollback** on its deployments. Its `production` environment moves back to the previous successful version, and because the shell's `production` environment resolves the catalog through that environment, the live portal follows without a rebuild.
 
 ## Not done here, and how I'd add it
 
