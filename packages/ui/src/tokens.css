@@ -10,7 +10,8 @@
   --portal-color-primary: #3d5afe;
   --portal-color-primary-hover: #2f48d9;
   --portal-color-on-primary: #ffffff;
-  --portal-color-focus: #8c9eff;
+  /* 5.1:1 on white, 3.6:1 on the dark header: meets WCAG 1.4.11 (3:1) everywhere. */
+  --portal-color-focus: #3d5afe;
 
   --portal-tone-neutral-bg: #eef0f3;
   --portal-tone-neutral-fg: #3f4752;
