@@ -59,7 +59,7 @@ Open http://localhost:3000.
 
 1. `withZephyr()` is the last Rsbuild plugin in every app. On `build` it reads the Module Federation config, uploads the output to Zephyr and prints an immutable version URL. `dev` and `build:local` set `ZE_DISABLED=true`, so local work and CI checks never upload.
 2. The shell's MF config only knows `localhost` URLs. `"zephyr:dependencies"` in `apps/shell/package.json` maps each remote key to a Zephyr app (`"catalog": "portal-catalog@workspace:*"`). At build time Zephyr rewrites the remotes to **tag URLs**, which always resolve to the newest matching remote version.
-3. GitHub Actions runs `verify` on every PR: lint, typecheck, unit tests for affected projects, then e2e. A push to `main` also runs `deploy`, which is `nx affected -t build` with a Zephyr CI token. Only the apps that changed get a new version. A catalog-only change rebuilds the catalog, and the live shell picks it up without being rebuilt.
+3. GitHub Actions runs `verify` on every PR: lint, typecheck, unit tests for affected projects, then e2e. A push to `main` also runs `deploy`, which is `nx affected -t build` with a Zephyr CI token. A remote-only change deploys only that remote, and the live shell picks it up without being rebuilt. A shell change also rebuilds the remotes first (build order), so they get fresh but identical versions.
 4. Environments and rollbacks are pointer moves in the Zephyr dashboard. Nothing is rebuilt.
 
 More detail, including what I'd add for PR previews and pinned releases, is in [docs/deployment.md](docs/deployment.md).
