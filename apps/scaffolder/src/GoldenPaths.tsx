@@ -14,7 +14,9 @@ export default function GoldenPaths() {
 
   const selected = goldenPaths.find((path) => path.id === selectedId);
   const error = name === '' ? null : validateName(name);
-  const command = selected && name !== '' && !error ? buildGenerateCommand(selected, name) : null;
+  const isExample = selected?.availability === 'example';
+  const command =
+    selected && !isExample && name !== '' && !error ? buildGenerateCommand(selected, name) : null;
 
   return (
     <section className={styles.page}>
@@ -76,6 +78,11 @@ export default function GoldenPaths() {
         {error && (
           <p id={errorId} className={styles.error}>
             {error}
+          </p>
+        )}
+        {selected && isExample && (
+          <p role="note" className={styles.note}>
+            {selected.name} is an example path; its generator is not part of this repo yet.
           </p>
         )}
         {command && (
