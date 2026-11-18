@@ -8,9 +8,18 @@ import { validateName } from './validate-name';
 export default function GoldenPaths() {
   const [selectedId, setSelectedId] = useState(goldenPaths[0]?.id);
   const [name, setName] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
   const inputId = useId();
   const errorId = useId();
+
+  // navigator.clipboard is undefined on non-secure origins, and writes can be denied.
+  const copy = (text: string) =>
+    Promise.resolve()
+      .then(() => navigator.clipboard.writeText(text))
+      .then(
+        () => setCopyState('copied'),
+        () => setCopyState('failed'),
+      );
 
   const selected = goldenPaths.find((path) => path.id === selectedId);
   const error = name === '' ? null : validateName(name);
@@ -46,7 +55,7 @@ export default function GoldenPaths() {
                   aria-pressed={isSelected}
                   onClick={() => {
                     setSelectedId(path.id);
-                    setCopied(false);
+                    setCopyState('idle');
                   }}
                 >
                   Use {path.name}
@@ -72,7 +81,7 @@ export default function GoldenPaths() {
           aria-describedby={error ? errorId : undefined}
           onChange={(event) => {
             setName(event.target.value);
-            setCopied(false);
+            setCopyState('idle');
           }}
         />
         {error && (
@@ -88,13 +97,15 @@ export default function GoldenPaths() {
         {command && (
           <output className={styles.command}>
             <code>{command}</code>
-            <Button
-              variant="secondary"
-              onClick={() => navigator.clipboard.writeText(command).then(() => setCopied(true))}
-            >
-              {copied ? 'Copied' : 'Copy command'}
+            <Button variant="secondary" onClick={() => copy(command)}>
+              {copyState === 'copied' ? 'Copied' : 'Copy command'}
             </Button>
           </output>
+        )}
+        {copyState === 'failed' && (
+          <p role="status" className={styles.error}>
+            Couldn't copy. Select the command and copy it manually.
+          </p>
         )}
       </div>
     </section>

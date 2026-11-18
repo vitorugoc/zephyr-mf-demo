@@ -1,10 +1,17 @@
-import { describe, expect, it, rs } from '@rstest/core';
+import { afterEach, describe, expect, it, rs } from '@rstest/core';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { goldenPaths } from './data/golden-paths';
 import GoldenPaths from './GoldenPaths';
 
 const nameInput = () => screen.getByRole('textbox', { name: 'App name' });
+
+const stubClipboard = (clipboard: unknown) =>
+  Object.defineProperty(navigator, 'clipboard', { value: clipboard, configurable: true });
+
+afterEach(() => {
+  stubClipboard(undefined);
+});
 
 describe('GoldenPaths', () => {
   it('renders the page heading', () => {
@@ -70,7 +77,7 @@ describe('GoldenPaths', () => {
   it('copies the command to the clipboard and confirms it', async () => {
     const user = userEvent.setup();
     const writeText = rs.fn(() => Promise.resolve());
-    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    stubClipboard({ writeText });
     render(<GoldenPaths />);
 
     await user.type(nameInput(), 'incidents');
@@ -78,5 +85,21 @@ describe('GoldenPaths', () => {
 
     expect(writeText).toHaveBeenCalledWith('pnpm nx g @portal/plugin:remote --name=incidents');
     expect(await screen.findByRole('button', { name: 'Copied' })).toBeInTheDocument();
+  });
+
+  it.each([
+    ['the write is rejected', { writeText: () => Promise.reject(new Error('denied')) }],
+    ['the clipboard API is missing (non-secure origin)', undefined],
+  ])('asks the user to copy by hand when %s', async (_case, clipboard) => {
+    const user = userEvent.setup();
+    stubClipboard(clipboard);
+    render(<GoldenPaths />);
+
+    await user.type(nameInput(), 'incidents');
+    await user.click(screen.getByRole('button', { name: 'Copy command' }));
+
+    expect(
+      await screen.findByText("Couldn't copy. Select the command and copy it manually."),
+    ).toHaveAttribute('role', 'status');
   });
 });
